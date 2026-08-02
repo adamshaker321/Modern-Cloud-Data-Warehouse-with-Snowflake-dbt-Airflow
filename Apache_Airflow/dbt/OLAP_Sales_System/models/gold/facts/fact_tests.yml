@@ -1,0 +1,76 @@
+version: 2
+models:
+  - name: fact_sales
+    description: "This table contains the fact sales data for the OLAP Sales System."
+    columns:
+      - name: SALES_KEY
+        tests:
+          - unique
+          - not_null
+      - name: ORDER_ID
+        tests:
+          - not_null
+      - name: CUSTOMER_KEY
+        tests:
+          - relationships:
+              to: ref('dim_customers')
+              field: CUSTOMER_KEY
+      - name: STAFF_KEY
+        tests:
+          - relationships:
+              to: ref('dim_staffs')
+              field: STAFF_KEY
+      - name: STORE_KEY
+        tests:
+          - relationships:
+              to: ref('dim_stores')
+              field: STORE_KEY
+      - name: PRODUCT_KEY
+        tests:
+          - relationships:
+              to: ref('dim_products')
+              field: PRODUCT_KEY
+      - name: ORDER_DATE_KEY
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: DATE_KEY
+      - name: REQUIRED_DATE_KEY
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: DATE_KEY
+      - name: SHIPPED_DATE_KEY
+        tests:
+          - relationships:
+              to: ref('dim_date')
+              field: DATE_KEY
+      - name: QUANTITY
+        tests:
+          - not_null
+      - name: UNIT_PRICE
+        tests:
+          - not_null
+
+  - name: fact_inventory
+    description: "This table contains the fact inventory data for the OLAP Sales System."
+    columns:
+      - name: INVENTORY_KEY
+        tests:
+          - unique
+          - not_null
+      - name: PRODUCT_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: PRODUCT_KEY
+      - name: STORE_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_stores')
+              field: STORE_KEY
+      - name: STOCK_QUANTITY
+        tests:
+          - not_null
