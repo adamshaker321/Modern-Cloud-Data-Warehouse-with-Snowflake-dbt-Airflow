@@ -1,0 +1,98 @@
+version: 2
+models:
+  - name: dim_customers
+    description: "dim_customers testing schema"
+    columns:
+      - name: CUSTOMER_KEY
+        tests:
+          - not_null
+          - unique
+      - name: CUSTOMER_ID
+        tests:
+          - not_null
+          - unique
+      - name: FULL_NAME
+        tests:
+          - not_null
+      - name: EMAIL
+        tests:
+          - unique
+  
+  
+  - name: dim_staffs
+    description: "dim_staffs testing schema"
+    columns:
+      - name: STAFF_KEY
+        tests:
+          - not_null
+          - unique
+      - name: STAFF_ID
+        tests:
+          - not_null
+          - unique
+      - name: FULL_NAME
+        tests:
+          - not_null
+      - name: EMAIL
+        tests:
+          - unique
+      - name: IS_ACTIVE
+        tests:
+          - accepted_values:
+              values: [0, 1 ,2]
+
+    
+  - name: dim_stores
+    description: "dim_stores testing schema"
+    columns:
+      - name: STORE_KEY
+        tests:
+          - not_null
+          - unique
+      - name: STORE_ID
+        tests:
+          - not_null
+          - unique
+      - name: STORE_NAME
+        tests:
+          - not_null
+      - name: EMAIL
+        tests:
+          - unique
+      - name: STREET
+        tests:
+          - not_null
+      - name: CITY
+        tests:
+          - not_null    
+      - name: STATE
+        tests:
+          - not_null
+      - name: PHONE
+        tests:
+          - not_null
+
+
+  - name: dim_products
+    description: "dim_products testing schema"
+    columns:
+      - name: PRODUCT_KEY
+        tests:
+          - not_null
+          - unique
+      - name: PRODUCT_ID
+        tests:
+          - not_null
+          - unique
+      - name: PRODUCT_NAME
+        tests:
+          - not_null
+      - name: CATEGORY_NAME
+        tests:
+          - not_null
+      - name: BRAND_NAME
+        tests:
+          - not_null
+      - name: UNIT_PRICE
+        tests:
+          - not_null  
