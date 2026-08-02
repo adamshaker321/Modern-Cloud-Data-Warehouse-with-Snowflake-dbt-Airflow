@@ -72,15 +72,53 @@ Power BI
 - Interactive Power BI Dashboard
 - Direct Snowflake Connection
 
-## Project Structure
+## Project Structure (important folders)
 
 ```
-.
+Apache_Airflow/
 ├── dags/
+│   └── Sales_OLAP.py
+│
 ├── dbt/
+│   └── OLAP_Sales_System/
+│       ├── models/
+│       │   ├── silver/
+│       │   │   ├── customers.sql
+│       │   │   ├── staffs.sql
+│       │   │   ├── products.sql
+│       │   │   ├── stores.sql
+│       │   │   ├── orders.sql
+│       │   │   └── ...
+│       │   │
+│       │   └── gold/
+│       │       ├── dimensions/
+│       │       │   ├── dim_customers.sql
+│       │       │   ├── dim_products.sql
+│       │       │   ├── dim_stores.sql
+│       │       │   ├── dim_staffs.sql
+│       │       │   └── dim_date.sql
+│       │       │
+│       │       └── facts/
+│       │           ├── fact_sales.sql
+│       │           └── fact_inventory.sql
+│       │
+│       ├── macros/
+│       ├── tests/
+│       ├── dbt_project.yml
+│       └── profiles.yml
+│
 ├── include/
+│   └── snowflake/
+│       └── setup database.sql
+        └── storage integration.sql
+        └── create bronze tables.sql
+        └── create external stage.sql
+        └── load data in bronze tables.sql
+│
 ├── dashboards/
-├── images/
+│   └── BIKE_STORE.pbix
+│
+
 └── README.md
 ```
 
