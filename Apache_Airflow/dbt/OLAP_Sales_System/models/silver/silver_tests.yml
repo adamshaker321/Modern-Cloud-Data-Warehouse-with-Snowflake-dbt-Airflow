@@ -1,0 +1,172 @@
+version: 2
+models:
+  - name: customers
+    description: "customers testing schema"
+    columns:
+      - name: CUSTOMER_ID
+        tests:
+          - not_null
+          - unique
+      - name: FULL_NAME
+        tests:
+          - not_null
+      - name: EMAIL
+        tests:
+          - unique
+
+
+  
+  - name: staffs
+    description: "staffs testing schema"
+    columns:
+      - name: STAFF_ID
+        tests:
+          - not_null
+          - unique
+      - name: FULL_NAME
+        tests:
+          - not_null
+      - name: EMAIL
+        tests:
+          - unique
+      - name: ACTIVE
+        tests:
+          - accepted_values:
+              values: [0, 1 ,2,null]
+      - name: STORE_ID
+        tests:
+          - relationships:
+              to: ref('stores')
+              field: STORE_ID
+
+    
+  - name: stores
+    description: "stores testing schema"
+    columns:
+      - name: STORE_ID
+        tests:
+          - not_null
+          - unique
+      - name: STORE_NAME
+        tests:
+          - not_null
+      - name: PHONE
+        tests:
+          - not_null
+      - name: EMAIL
+        tests:
+          - not_null
+          - unique
+      - name: STREET
+        tests:
+          - not_null
+      - name: CITY
+        tests:
+          - not_null
+
+
+  
+  
+  - name: categories
+    description: "categories testing schema"
+    columns:
+      - name: CATEGORY_ID
+        tests:
+          - not_null
+          - unique
+      - name: CATEGORY_NAME
+        tests:
+          - not_null
+  
+
+  
+  - name: brands
+    description: "brands testing schema"
+    columns:
+      - name: BRAND_ID
+        tests:
+          - not_null
+          - unique
+      - name: BRAND_NAME
+        tests:
+          - not_null
+  
+  
+  - name: products
+    description: "products testing schema"
+    columns:
+      - name: PRODUCT_ID
+        tests:
+          - not_null
+          - unique
+      - name: PRODUCT_NAME
+        tests:
+          - not_null
+      - name: BRAND_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('brands')
+              field: BRAND_ID
+      - name: CATEGORY_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('categories')
+              field: CATEGORY_ID
+      - name: LIST_PRICE
+        tests:
+          - not_null
+  
+
+  - name: orders
+    description: "orders testing schema"
+    columns:
+      - name: ORDER_ID
+        tests:
+          - not_null
+          - unique
+      - name: CUSTOMER_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('customers')
+              field: CUSTOMER_ID
+      - name: ORDER_STATUS
+        tests:
+          - accepted_values:
+              values: [1, 2 ,3, 4, 5]
+      - name: STORE_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stores')
+              field: STORE_ID
+      - name: STAFF_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('staffs')
+              field: STAFF_ID
+
+  - name: order_items
+    description: "order_items testing schema"
+    columns:
+      - name: ORDER_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('orders')
+              field: ORDER_ID
+      - name: PRODUCT_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('products')
+              field: PRODUCT_ID
+      - name: QUANTITY
+        tests:
+          - not_null
+      - name: LIST_PRICE
+        tests:
+          - not_null
